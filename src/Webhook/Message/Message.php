@@ -110,6 +110,8 @@ abstract class Message
      */
     public function getUserId()
     {
-        return $this->request['user']['id'];
+        if (array_key_exists('id', $this->request['user'])) {
+            return $this->request['user']['id'];
+        }
     }
 }

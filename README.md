@@ -115,7 +115,14 @@ $callback = function (Message $message) {
     switch ($message->getNotificationType()) {
         case Message::USER_VALIDATION:
             /** @var Xsolla\SDK\Webhook\Message\UserValidationMessage $message */
-            // TODO if user not found, you should throw Xsolla\SDK\Exception\Webhook\InvalidUserException
+            if ($message->getUserPublicId()) {
+                // TODO get user by public_id, or throw Xsolla\SDK\Exception\Webhook\InvalidUserException
+                $userId = 'some_user_id';
+                return new \Xsolla\SDK\Webhook\Response\UserValidationResponse($userId);
+            } else {
+                // TODO check that user exists by user_id
+                // If user not found, you should throw Xsolla\SDK\Exception\Webhook\InvalidUserException
+            }
             break;
         case Message::PAYMENT:
             /** @var Xsolla\SDK\Webhook\Message\PaymentMessage $message */
